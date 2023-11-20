@@ -240,5 +240,143 @@ class Ministore
             throw new Exception($e->getMessage());
         }
         return false;
+    }
+    
+    /**
+     * get ministore from user id
+     *
+     * @param $user_id
+     * @return array
+     */
+    public function getMinistoreFromUser($user_id = null)
+    {
+        $sql = <<<EOF
+            SELECT * FROM ministore
+            WHERE user_id = :user_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':user_id' => $user_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
+    }
+
+    /**
+     * get ministore from site id
+     *
+     * @param $site_id
+     * @return array
+     */
+    public function getMinistoreFromSite($site_id = null)
+    {
+        $sql = <<<EOF
+            SELECT * FROM ministore
+            WHERE site_id = :site_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':site_id' => $site_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
+    }
+
+    /**
+     * get members
+     *
+     * @param $store_id
+     * @return array
+     */
+    public function getMembers($store_id)
+    {
+        $sql = <<<EOF
+            SELECT * FROM ministore_members
+            WHERE store_id = :store_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':store_id' => $store_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
+    }
+
+    /**
+     * get orders
+     *
+     * @param $store_id
+     * @return array
+     */
+    public function getOrders($store_id)
+    {
+        $sql = <<<EOF
+            SELECT * FROM ministore_orders
+            WHERE store_id = :store_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':store_id' => $store_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
+    }
+    
+    /**
+     * get products
+     *
+     * @param $store_id
+     * @return array
+     */
+    public function getProducts($store_id)
+    {
+        $sql = <<<EOF
+            SELECT * FROM ministore_products
+            WHERE store_id = :store_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':store_id' => $store_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
+    }
+    
+    /**
+     * get section groups from site
+     *
+     * @param $site_id
+     * @return array
+     */
+    public function getSectionGroupsFromSite($site_id)
+    {
+        $sql = <<<EOF
+            SELECT * FROM site_section_group
+            WHERE site_id = :site_id
+EOF;
+        $query = $this->database->prepare($sql);
+        $query->execute([
+            ':site_id' => $site_id
+        ]);
+        $result = [];
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $result;
     } 
 }
